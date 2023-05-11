@@ -2,7 +2,7 @@ import { FC, FormEvent, useEffect, useState } from "react";
 import "./App.css";
 
 const App: FC = () => {
-	const [input, setInput] = useState(0);
+	const [input, setInput] = useState("");
 	const [queue, setQueue] = useState<Array<number>[]>([[2, 5, 5], [3, 1, 9], [1, 5, 1], [6], [22]]);
 
 	useEffect(() => {
@@ -22,19 +22,19 @@ const App: FC = () => {
 	const addItemToQueue = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		let itemAmount = 1e9;
+		let maxItems = 1e9;
 		let shortestQueue: number[];
 
 		queue.map((item) => {
 			const total = item.reduce((sum, value) => sum + value, 0);
-			if (total < itemAmount) {
-				itemAmount = total;
+			if (total < maxItems) {
+				maxItems = total;
 				shortestQueue = item;
 			}
 		});
 
 		setQueue((prevQueue) =>
-			prevQueue.map((item) => (item === shortestQueue ? [...item, input] : item))
+			prevQueue.map((item) => (item === shortestQueue ? [...item, parseInt(input)] : item))
 		);
 	};
 
@@ -47,7 +47,7 @@ const App: FC = () => {
 						type="number"
 						className="rounded"
 						value={input}
-						onChange={(e) => setInput(e.currentTarget.valueAsNumber)}
+						onChange={(e) => setInput(e.currentTarget.value)}
 					/>
 					<button>checkout</button>
 				</div>
@@ -56,7 +56,7 @@ const App: FC = () => {
 			<div className="flex flex-row gap-5">
 				{queue.map((items, id) => (
 					<div key={id}>
-						Register {id + 1}
+						Line {id + 1}
 						{items.map((item, id) => (
 							<div key={id}>{item}</div>
 						))}
