@@ -1,7 +1,7 @@
 ## Technologies used
 
 - [React](https://reactjs.org/) single page application
-- Styling done using [Tailwind CSS] (https://tailwindcss.com/)
+- Styling done using [Tailwind CSS](https://tailwindcss.com/)
 
 ## Setup
 
